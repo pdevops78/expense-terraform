@@ -29,7 +29,7 @@ resource "null_resource" "provisioner" {
     }
     inline = [
       "sudo pip3.11 install ansible -y",
-      "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-terraform expense.yml -e env=${var.env} -e component_name=${var.component}"
+      "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-ansible expense.yml -e env=${var.env} -e component_name=${var.component}"
     ]
   }
 }
