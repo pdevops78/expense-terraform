@@ -22,8 +22,8 @@ resource "null_resource" "provisioner" {
   provisioner "remote-exec" {
     connection {
       type         = "ssh"
-      user         =  var.ssh_user
-      password     =  var.ssh_pass
+      user         =  "ec2-user"
+      password     =  "DevOps321"
       host         = aws_instance.component.public_ip
       port         = 22
     }
@@ -36,7 +36,7 @@ resource "null_resource" "provisioner" {
 resource "aws_route53_record" "route" {
   name               = "${var.component}-${var.env}.pdevops78.online"
   type               = "A"
-  zone_id            = var.zone_id
+  zone_id            = "Z08520602FC482APPVUI7"
   records            = [aws_instance.component.private_ip]
   ttl                = 30
 }
