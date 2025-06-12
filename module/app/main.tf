@@ -22,11 +22,11 @@ resource "aws_instance" "component" {
 resource "null_resource" "provisioner" {
   provisioner "remote-exec" {
     connection {
-      type         = "ssh"
-      user         =  var.ssh_user
-      password     =  var.ssh_pass
-      host         = aws_instance.component.public_ip
-      port         = 22
+      type         =  "ssh"
+      user         =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_user
+      password     =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_password
+      host         =  aws_instance.component.public_ip
+      port         =  22
     }
     inline = [
       "sudo pip3.11 install ansible",
