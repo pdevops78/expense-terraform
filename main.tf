@@ -7,6 +7,7 @@ module "frontend" {
 //  ssh_user = var.ssh_user
 //  ssh_pass = var.ssh_pass
   zone_id = var.zone_id
+  vault_token = var.vault_token
 }
    module "backend" {
    depends_on = [module.mysql]
@@ -17,6 +18,7 @@ module "frontend" {
 //   ssh_pass = var.ssh_pass
    env = var.env
     zone_id = var.zone_id
+     vault_token = var.vault_token
    }
 
    module "mysql" {
@@ -27,5 +29,6 @@ module "frontend" {
 //   ssh_user = var.ssh_user
 //   ssh_pass = var.ssh_pass
    zone_id = var.zone_id
+     vault_token = var.vault_token
 }
 
