@@ -29,8 +29,9 @@ resource "null_resource" "provisioner" {
       port         =  22
     }
     inline = [
-      "sudo pip3.11 install ansible",
-      "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-ansible expense.yml -e env=${var.env} -e component_name=${var.component}"
+      "sudo pip3.11 install ansible hvac",
+      "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-ansible/getsecrets.yml -e env=${var.env} -e component_name=${var.component}",
+      "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-ansible expense.yml -e env=${var.env} -e component_name=${var.component} -e @secrets.json -e @app.json"
     ]
   }
 }
