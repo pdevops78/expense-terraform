@@ -50,5 +50,6 @@ dbServers              = var.dbServers
 env                    = var.env
 vpc_cidr_block         = var.vpc_cidr_block
 default_vpc_id         = var.default_vpc_id
+availability_zone      = var.availability_zone
 }
 

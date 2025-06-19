@@ -14,3 +14,13 @@ resource "aws_vpc_peering_connection" "peer" {
   }
 }
 # create subnets
+
+resource "aws_subnet" "frontend_subnets" {
+  count       = length(var.frontendServers)
+  vpc_id      = aws_vpc.vpc.id
+  cidr_block  = var.frontendServers[count.index]
+  availability_zone = var.availability_zone[count.index]
+  tags = {
+    Name = "${var.env}-frontend-${count.index+1}"
+  }
+}
