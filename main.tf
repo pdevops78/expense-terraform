@@ -44,6 +44,8 @@
 # }
 module "multiServerVPC"{
 source                 = "./module/VPCMultiServer"
-
+frontendServers        = var.frontendServers
+backendServers         = var.backendServers
+dbServers              = var.dbServers
 }
 
