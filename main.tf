@@ -40,6 +40,6 @@ module "vpc" {
   default_vpc_id             = var.default_vpc_id
   default_vpc_cidr_block     = var.default_vpc_cidr_block
   default_vpc_route_table_id = var.default_vpc_route_table_id
-  vpc_route_table_id         = var.vpc_route_table_id
+
 }
 
