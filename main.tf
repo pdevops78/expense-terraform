@@ -47,5 +47,7 @@ source                 = "./module/VPCMultiServer"
 frontendServers        = var.frontendServers
 backendServers         = var.backendServers
 dbServers              = var.dbServers
+env                    = var.env
+vpc_cidr_block         = var.vpc_cidr_block
 }
 

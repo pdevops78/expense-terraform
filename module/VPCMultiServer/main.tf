@@ -13,3 +13,4 @@ resource "aws_vpc_peering_connection" "peer" {
   Name = "${var.env}-peer"
   }
 }
+# create subnets
