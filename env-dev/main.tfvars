@@ -8,4 +8,7 @@ vpc_cidr_block         = "10.0.0.0/24"
 subnet_cidr_block      = "10.0.0.0/24"
 default_vpc_id         = "vpc-02a94ee8944923438"
 default_vpc_cidr_block = "172.31.0.0/16"
+vpc_route_table_id     = "rtb-0def3d42170be2da2"
+default_vpc_route_table_id = "rtb-0a2e9ff93585c96fd"
+
 
