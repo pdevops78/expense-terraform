@@ -2,13 +2,15 @@ env                  = "dev"
 instance_type        = "t2.micro"
 //ssh_user="ec2-user"
 //ssh_pass="DevOps321"
-zone_id                = "Z08520602FC482APPVUI7"
-vault_token            = "hvs.T8WnPWmYmGZkPYlGAHXVmebk"
-vpc_cidr_block         = "10.0.0.0/24"
-subnet_cidr_block      = "10.0.0.0/24"
-default_vpc_id         = "vpc-02a94ee8944923438"
-default_vpc_cidr_block = "172.31.0.0/16"
-vpc_route_table_id     = "rtb-0def3d42170be2da2"
-default_vpc_route_table_id = "rtb-0a2e9ff93585c96fd"
-
+zone_id                      = "Z08520602FC482APPVUI7"
+vault_token                  = "hvs.T8WnPWmYmGZkPYlGAHXVmebk"
+vpc_cidr_block               = "10.0.0.0/24"
+subnet_cidr_block            = "10.0.0.0/24"
+default_vpc_id               = "vpc-02a94ee8944923438"
+default_vpc_cidr_block       = "172.31.0.0/16"
+vpc_route_table_id           = "rtb-0def3d42170be2da2"
+default_vpc_route_table_id   = "rtb-0a2e9ff93585c96fd"
+frontendServers              = ["10.0.0.0/27","10.0.0.32/27"]
+backendServers               = ["10.0.0.64/27","10.0.0.96/27"]
+dbServers                    = ["10.0.0.128/27","10.0.0.160/27"]
 
