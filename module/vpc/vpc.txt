@@ -1,0 +1,69 @@
+
+ Examples of Route Rules:
+- Route to internet:
+- Destination: 0.0.0.0/0
+- Next hop: Internet Gateway
+- Route to peer VPC:
+- Destination: 10.20.0.0/16
+- Next hop: Peering Connection
+- Route through a VPN:
+- Destination: 192.168.0.0/16
+- Next hop: VPN Tunnel
+
+
+VPN Gateway:(In companies)
+---------------------------
+- Create a custom VPC.
+- Deploy the VPN gateway (host) inside that custom VPC.
+- Set up a default VPC.
+- Establish VPC peering between the custom VPC (with VPN) and the default VPC.
+🔓 Result: No Bastion Needed
+You're absolutely correct — Bastion is not required in this setup if:
+- You're connecting to the custom VPC via VPN, and
+- There are valid routes and security rules that allow access from the VPN-connected subnet to the default VPC.
+
+
+In Lab:
+--------
+1. create VPC
+2. create subnets
+3. attach peer connection between bastion vpc(default vpc) and custom vpc
+4. create Route tables
+5. edit routes
+6. attach peer connection for route tables
+
+problem:
+========(What if VM goes down?)
+Single server for each component:
+=================================
+If VM goes down then what is the availability of the application
+
+Sol:
+====
+Hardware can be a problem
+Site can be a problem
+
+Problem:
+========
+Site Disaster:
+--------------
+Due to any natural calamities of our data centers can go down. How we design our application on availability?
+Sol:
+====
+Hardware can be a problem
+Site can be a problem
+
+
+multi subnets:
+==============
+1. create VPC
+2. create frontend subnets
+3. create backend subnets
+4. create db subnets
+5.
+
+Module to Module communication:
+-------------------------------
+1. first module can expose the information
+2. second module can read the information
+3. to expose the information outside by using "output"
