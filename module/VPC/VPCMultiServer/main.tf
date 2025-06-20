@@ -24,6 +24,7 @@ resource "aws_subnet" "frontend_subnets" {
     Name = "${var.env}-frontend-${count.index+1}"
   }
 }
+
 resource "aws_route" "main_edit_route" {
   route_table_id            = var.vpc_route_table_id
   destination_cidr_block    = var.default_vpc_cidr_block
