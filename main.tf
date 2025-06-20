@@ -43,7 +43,7 @@
 #   vpc_route_table_id         = var.vpc_route_table_id
 # }
 module "multiServerVPC"{
-source                 = "./module/VPCMultiServer"
+source                 = "./module/VPC/VPCMultiServer"
 frontendServers        = var.frontendServers
 backendServers         = var.backendServers
 dbServers              = var.dbServers
@@ -53,6 +53,7 @@ default_vpc_id         = var.default_vpc_id
 availability_zone      = var.availability_zone
 default_vpc_cidr_block = var.default_vpc_cidr_block
 default_vpc_route_table_id = var.default_vpc_route_table_id
-vpc_route_table_id  = var.vpc_route_table_id
+vpc_route_table_id         = var.vpc_route_table_id
+
 }
 
