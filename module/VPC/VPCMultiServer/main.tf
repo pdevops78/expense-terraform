@@ -55,3 +55,12 @@ resource "aws_route" "default_edit_route" {
 #     Name = "${var.env}-db-${count.index+1}"
 #   }
 # }
+# resource "aws_subnet" "public_subnets" {
+#   count       = length(var.publicServers)
+#   vpc_id      = aws_vpc.vpc.id
+#   cidr_block  = var.publicServers[count.index]
+#   availability_zone = var.availability_zone[count.index]
+#   tags = {
+#     Name = "${var.env}-db-${count.index+1}"
+#   }
+# }

@@ -30,33 +30,82 @@ resource "aws_subnet" "frontend_subnets" {
 #  create Route table for frontend
 resource "aws_route_table" "frontend" {
   count   = length(var.frontendServers)
-  vpc_id = aws_vpc.example.id
+  vpc_id = aws_vpc.vpc.id
   tags = {
     Name = "${var.env}-frontend-route-${count.index+1}"
       }
   }
 
-#  create backend subnets / servers
-resource "aws_subnet" "backend_subnets" {
-  count       = length(var.backendServers)
-  vpc_id      = aws_vpc.vpc.id
-  cidr_block  = var.backendServers[count.index]
-  availability_zone = var.availability_zone[count.index]
-  tags = {
-    Name = "${var.env}-backend-${count.index+1}"
-  }
+#  create a Route
+resource "aws_route" "route" {
+  count                     = length(var.frontendServers)
+  route_table_id            = aws_route_table.frontend[count.index].id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
 }
 
-# create db subnets / servers
-resource "aws_subnet" "db_subnets" {
-  count       = length(var.dbServers)
-  vpc_id      = aws_vpc.vpc.id
-  cidr_block  = var.dbServers[count.index]
-  availability_zone = var.availability_zone[count.index]
-  tags = {
-    Name = "${var.env}-db-${count.index+1}"
-  }
-}
+#
+# #  create Route table for backend
+# resource "aws_route_table" "backend" {
+#   count   = length(var.backendServers)
+#   vpc_id = aws_vpc.vpc.id
+#   tags = {
+#     Name = "${var.env}-backend-route-${count.index+1}"
+#       }
+#   }
+#
+# # create Route table for db
+# resource "aws_route_table" "db" {
+#   count   = length(var.dbServers)
+#   vpc_id = aws_vpc.vpc.id
+#   tags = {
+#     Name = "${var.env}-db-route-${count.index+1}"
+#       }
+#   }
+#
+# #  create Route table for public subnets
+# #  create Route table for backend
+# resource "aws_route_table" "public" {
+#   count   = length(var.publicServers)
+#   vpc_id = aws_vpc.vpc.id
+#   tags = {
+#     Name = "${var.env}-public-route-${count.index+1}"
+#       }
+#   }
+#
+#
+# #  create backend subnets / servers
+# resource "aws_subnet" "backend_subnets" {
+#   count       = length(var.backendServers)
+#   vpc_id      = aws_vpc.vpc.id
+#   cidr_block  = var.backendServers[count.index]
+#   availability_zone = var.availability_zone[count.index]
+#   tags = {
+#     Name = "${var.env}-backend-${count.index+1}"
+#   }
+# }
+#
+# # create db subnets / servers
+# resource "aws_subnet" "db_subnets" {
+#   count       = length(var.dbServers)
+#   vpc_id      = aws_vpc.vpc.id
+#   cidr_block  = var.dbServers[count.index]
+#   availability_zone = var.availability_zone[count.index]
+#   tags = {
+#     Name = "${var.env}-db-${count.index+1}"
+#   }
+# }
+#
+# #  create public subnets/servers
+# resource "aws_subnet" "public_subnets" {
+#   count       = length(var.publicServers)
+#   vpc_id      = aws_vpc.vpc.id
+#   cidr_block  = var.dbServers[count.index]
+#   availability_zone = var.availability_zone[count.index]
+#   tags = {
+#     Name = "${var.env}-db-${count.index+1}"
+#   }
+# }
 
 
 
