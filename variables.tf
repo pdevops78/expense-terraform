@@ -13,6 +13,7 @@ variable "vpc_route_table_id"{}
 variable "frontendServers"{}
 variable "backendServers"{}
 variable "dbServers"{}
+variable "publicServers"{}
 variable "availability_zone"{}
 
 
