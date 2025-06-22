@@ -94,6 +94,23 @@ resource "aws_nat_gateway" "nat" {
 #     Name = "${var.env}-backend-route-${count.index+1}"
 #       }
 #   }
+
+#  associate backend subnets with nat
+# resource "aws_route" "backend_nat" {
+#   count                     = length(var.backendServers)
+#   route_table_id            = aws_route_table.backend[count.index].id
+#   destination_cidr_block    = "0.0.0.0/0"
+#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+#  }
+#
+# #  add destination vpc cidr block to route in route table
+# resource "aws_route" "backend_route" {
+#   count                     = length(var.backendServers)
+#   route_table_id            = aws_route_table.backend[count.index].id
+#   destination_cidr_block    = var.default_vpc_cidr_block
+#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+#  }
+
 #
 # # create Route table for db
 # resource "aws_route_table" "db" {
@@ -103,6 +120,23 @@ resource "aws_nat_gateway" "nat" {
 #     Name = "${var.env}-db-route-${count.index+1}"
 #       }
 #   }
+
+#  associate nat with db subnets
+# resource "aws_route" "public_nat" {
+#   count                     = length(var.publicServers)
+#   route_table_id            = aws_route_table.public[count.index].id
+#   destination_cidr_block    = "0.0.0.0/0"
+#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+#  }
+#
+# #  add destination vpc cidr block to route in route table
+# resource "aws_route" "public_route" {
+#   count                     = length(var.publicServers)
+#   route_table_id            = aws_route_table.public[count.index].id
+#   destination_cidr_block    = var.default_vpc_cidr_block
+#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+#  }
+
 #
 # #  create Route table for public subnets
 # #  create Route table for backend
@@ -179,5 +213,10 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public[count.index].id
 }
 
+resource "aws_route" "default_edit_route" {
+    route_table_id            = var.default_vpc_route_table_id
+    destination_cidr_block    = var.vpc_cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+}
 
 
