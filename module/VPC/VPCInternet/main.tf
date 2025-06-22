@@ -164,6 +164,14 @@ resource "aws_route" "public_route" {
   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
  }
 
+#  connect internet gateway to public subnets
+ resource "aws_route" "public_route" {
+   count                     = length(var.publicServers)
+   route_table_id            = aws_route_table.public[count.index].id
+   destination_cidr_block    = "0.0.0.0/0"
+   gateway_id                = aws_internet_gateway.igw.id
+  }
+
 #  associate subnets with route table id
 resource "aws_route_table_association" "public" {
   count          = length(var.publicServers)
