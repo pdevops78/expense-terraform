@@ -134,7 +134,7 @@ resource "aws_nat_gateway" "nat" {
 resource "aws_subnet" "public_subnets" {
   count       = length(var.publicServers)
   vpc_id      = aws_vpc.vpc.id
-  cidr_block  = var.dbServers[count.index]
+  cidr_block  = var.publicServers[count.index]
   availability_zone = var.availability_zone[count.index]
   tags = {
     Name = "${var.env}-public-subnets-${count.index+1}"
