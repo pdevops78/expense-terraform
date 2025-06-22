@@ -165,7 +165,7 @@ resource "aws_route" "public_route" {
  }
 
 #  connect internet gateway to public subnets
- resource "aws_route" "public_route" {
+ resource "aws_route" "public_igw" {
    count                     = length(var.publicServers)
    route_table_id            = aws_route_table.public[count.index].id
    destination_cidr_block    = "0.0.0.0/0"
