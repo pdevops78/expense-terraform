@@ -77,7 +77,7 @@ resource "aws_nat_gateway" "nat" {
   tags = {
     Name = "${var.env}-ig"
   }
-
+}
 #
 # #  create Route table for backend
 # resource "aws_route_table" "backend" {
