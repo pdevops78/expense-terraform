@@ -60,9 +60,9 @@
 module "VPCInternet"{
 source = "./module/VPC/VPCInternet"
 frontendServers        = var.frontendServers
-backendServers         = var.backendServers
-dbServers              = var.dbServers
-publicServers          = var.publicServers
+# backendServers         = var.backendServers
+# dbServers              = var.dbServers
+# publicServers          = var.publicServers
 env                    = var.env
 vpc_cidr_block         = var.vpc_cidr_block
 default_vpc_id         = var.default_vpc_id
