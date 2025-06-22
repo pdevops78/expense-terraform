@@ -40,10 +40,17 @@ resource "aws_route_table" "frontend" {
 resource "aws_route" "frontend_route" {
   count                     = length(var.frontendServers)
   route_table_id            = aws_route_table.frontend[count.index].id
-  destination_cidr_block    = "0.0.0.0/0"
+  destination_cidr_block    = var.default_vpc_cidr_block
   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
  }
+
+#  associate frontend subnets with nat
+# resource "aws_route" "frontend_route_nat" {
+#   count                     = length(var.frontendServers)
+#   route_table_id            = aws_route_table.frontend[count.index].id
+#   destination_cidr_block    = "0.0.0.0/0"
+#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+#  }
 
 #  associate subnets with route table id
 resource "aws_route_table_association" "frontend" {
