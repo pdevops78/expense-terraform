@@ -36,6 +36,13 @@ resource "aws_route_table" "frontend" {
       }
   }
 
+#  associate subnets with route table id
+resource "aws_route_table_association" "frontend" {
+  count          = length(var.frontendServers)
+  subnet_id      = aws_subnet.frontend_subnets[count.index].id
+  route_table_id = aws_route_table.frontend[count.index].id
+}
+
 #  create a Route
 resource "aws_route" "route" {
   count                     = length(var.frontendServers)
