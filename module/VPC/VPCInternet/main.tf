@@ -42,7 +42,7 @@ resource "aws_route" "frontend_route" {
   route_table_id            = aws_route_table.frontend[count.index].id
   destination_cidr_block    = "0.0.0.0/0"
   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-  nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+#   nat_gateway_id            = aws_nat_gateway.nat[count.index].id
  }
 
 #  associate subnets with route table id
