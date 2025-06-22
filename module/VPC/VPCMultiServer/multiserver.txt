@@ -26,5 +26,11 @@ route rules:
 10.create nat gateway with public subnets
 11. add nat gateway to private subnets
 
+VPC
+├── Subnet(s)
+│   └── Instance(s)
+└── Security Group(s)
+     └── Attached to Instance(s)
+
 
 

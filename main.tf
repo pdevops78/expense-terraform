@@ -1,36 +1,37 @@
-# module "frontend" {
-#   depends_on = [module.backend]
-#   source = "./module/app"
-#   instance_type = var.instance_type
-#   component = "frontend"
-#   env = var.env
-# //  ssh_user = var.ssh_user
-# //  ssh_pass = var.ssh_pass
-#   zone_id = var.zone_id
-#   vault_token = var.vault_token
-# }
-#    module "backend" {
-#    depends_on = [module.mysql]
-#    source = "./module/app"
-#    instance_type = var.instance_type
-#    component = "backend"
-# //   ssh_user = var.ssh_user
-# //   ssh_pass = var.ssh_pass
-#    env = var.env
-#     zone_id = var.zone_id
-#      vault_token = var.vault_token
-#    }
-#
-#    module "mysql" {
-#    source = "./module/app"
-#    instance_type = var.instance_type
-#    component = "mysql"
-#    env = var.env
-# //   ssh_user = var.ssh_user
-# //   ssh_pass = var.ssh_pass
-#    zone_id = var.zone_id
-#      vault_token = var.vault_token
-# }
+module "frontend" {
+  depends_on      = [module.backend]
+  source          = "./module/app"
+  instance_type   = var.instance_type
+  component       = "frontend"
+  env             = var.env
+  zone_id         = var.zone_id
+  vault_token     = var.vault_token
+  subnets         = module.VPCInternet.frontend
+  vpc_id          = module.vpc
+}
+ module "backend" {
+   depends_on      = [module.mysql]
+   source          = "./module/app"
+   instance_type   = var.instance_type
+   component       = "backend"
+   env             = var.env
+   zone_id         = var.zone_id
+   vault_token     = var.vault_token
+   subnets         = module.VPCInternet.backend
+   vpc_id          = module.vpc
+   }
+
+module "mysql" {
+   source          = "./module/app"
+   instance_type   = var.instance_type
+   component       = "mysql"
+   env             = var.env
+   zone_id         = var.zone_id
+   vault_token     = var.vault_token
+   subnets         = module.VPCInternet.db
+   vpc_id          = module.vpc
+
+}
 
 # module "singleVPCServer" {
 #   source                     =  "./module/singleVPCServer"
@@ -60,8 +61,8 @@
 module "VPCInternet"{
 source = "./module/VPC/VPCInternet"
 frontendServers        = var.frontendServers
-# backendServers         = var.backendServers
-# dbServers              = var.dbServers
+backendServers         = var.backendServers
+dbServers              = var.dbServers
 publicServers          = var.publicServers
 env                    = var.env
 vpc_cidr_block         = var.vpc_cidr_block
