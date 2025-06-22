@@ -36,6 +36,16 @@ resource "aws_route_table" "frontend" {
       }
   }
 
+#  create a Route
+resource "aws_route" "route" {
+  count                     = length(var.frontendServers)
+  route_table_id            = aws_route_table.frontend[count.index].id
+  destination_cidr_block    = "0.0.0.0/0"
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  gateway                   = aws_internet_gateway.igw.id
+
+}
+
 #  associate subnets with route table id
 resource "aws_route_table_association" "frontend" {
   count          = length(var.frontendServers)
@@ -43,12 +53,13 @@ resource "aws_route_table_association" "frontend" {
   route_table_id = aws_route_table.frontend[count.index].id
 }
 
-#  create a Route
-resource "aws_route" "route" {
-  count                     = length(var.frontendServers)
-  route_table_id            = aws_route_table.frontend[count.index].id
-  destination_cidr_block    = var.default_vpc_cidr_block
-  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+#  create  Internet gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name ="${var.env}-ig"
+  }
 }
 
 #
