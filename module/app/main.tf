@@ -52,7 +52,7 @@ resource "null_resource" "provisioner" {
         type         =  "ssh"
         user         =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_user
         password     =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_password
-        host         =  aws_instance.component.public_ip
+        host         =  aws_instance.component.private_ip
         port         =  22
       }
    provisioner "remote-exec" {
