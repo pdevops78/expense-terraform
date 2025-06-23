@@ -29,7 +29,7 @@ module "mysql" {
    zone_id         = var.zone_id
    vault_token     = var.vault_token
    subnets         = module.VPCInternet.db
-   vpc_id          = module.vpc.vpc_id
+   vpc_id          = module.VPCInternet.vpc_id
 
 }
 
