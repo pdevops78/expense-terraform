@@ -28,7 +28,7 @@ module "mysql" {
    env             = var.env
    zone_id         = var.zone_id
    vault_token     = var.vault_token
-   subnets         = module.VPCInternet.db
+   subnet_id         = module.VPCInternet.db
    vpc_id          = module.VPCInternet.vpc_id
 
 }
