@@ -2,7 +2,7 @@ resource "aws_instance" "component" {
   ami = data.aws_ami.ami.image_id
   instance_type = var.instance_type
   subnet_id        = var.subnet_id[0]
-  vpc_security_group_ids = aws_security_group.sg.id
+  vpc_security_group_ids = []aws_security_group.sg.id]
   instance_market_options {
       market_type = "spot"
       spot_options {
