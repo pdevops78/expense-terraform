@@ -3,17 +3,17 @@ output  "vpc_id"{
 }
 
 # output "frontend"{
-#     value = aws_subnet_frontend_subnets.*.id
+#     value = aws_subnet.frontend_subnets.*.id
 # }
 #
 # output "backend"{
-#     value = aws_subnet_backend_subnets.*.id
+#     value = aws_subnet.backend_subnets.*.id
 # }
 
 output "db"{
-    value = aws_subnet_db_subnets.*.id
+    value = aws_subnet.db_subnets.*.id
 }
 
 output "public"{
-    value = aws_subnet_public_subnets.*.id
+    value = aws_subnet.public_subnets.*.id
 }
