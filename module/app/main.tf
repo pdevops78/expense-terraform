@@ -26,7 +26,7 @@ resource "aws_instance" "component" {
 resource "aws_security_group" "sg" {
   name                 =    "${var.env}-custom-vpc-sg"
   description          =    "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id               =    aws_vpc.vpc.id
+  vpc_id               =    var.vpc_id
    ingress {
       from_port        =     0
       to_port          =     0

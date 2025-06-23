@@ -29,7 +29,7 @@ module "mysql" {
    zone_id         = var.zone_id
    vault_token     = var.vault_token
    subnets         = module.VPCInternet.db
-   vpc_id          = module.vpc
+   vpc_id          = module.vpc.vpc_id
 
 }
 
@@ -63,7 +63,7 @@ source = "./module/VPC/VPCInternet"
 # frontendServers        = var.frontendServers
 # backendServers         = var.backendServers
 dbServers              = var.dbServers
-# publicServers          = var.publicServers
+publicServers          = var.publicServers
 env                    = var.env
 vpc_cidr_block         = var.vpc_cidr_block
 default_vpc_id         = var.default_vpc_id

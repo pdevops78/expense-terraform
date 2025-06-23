@@ -182,47 +182,47 @@ resource "aws_route" "db_route" {
 # ***************************************** public *************************************************
 
 #  create public subnets/servers
-# resource "aws_subnet" "public_subnets" {
-#   count       = length(var.publicServers)
-#   vpc_id      = aws_vpc.vpc.id
-#   cidr_block  = var.publicServers[count.index]
-#   availability_zone = var.availability_zone[count.index]
-#   tags = {
-#     Name = "${var.env}-public-subnets-${count.index+1}"
-#   }
-# }
-#
-# #  create Route table for public subnets
-# resource "aws_route_table" "public" {
-#   count   = length(var.publicServers)
-#   vpc_id = aws_vpc.vpc.id
-#   tags = {
-#     Name = "${var.env}-public-route-${count.index+1}"
-#       }
-#   }
-#
-# #  create a Route
-# resource "aws_route" "public_route" {
-#   count                     = length(var.publicServers)
-#   route_table_id            = aws_route_table.public[count.index].id
-#   destination_cidr_block    = var.default_vpc_cidr_block
-#   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-#  }
-#
-# #  connect internet gateway to public subnets
-#  resource "aws_route" "public_igw" {
-#    count                     = length(var.publicServers)
-#    route_table_id            = aws_route_table.public[count.index].id
-#    destination_cidr_block    = "0.0.0.0/0"
-#    gateway_id                = aws_internet_gateway.igw.id
-#   }
-#
-# #  associate subnets with route table id
-# resource "aws_route_table_association" "public" {
-#   count          = length(var.publicServers)
-#   subnet_id      = aws_subnet.public_subnets[count.index].id
-#   route_table_id = aws_route_table.public[count.index].id
-# }
+resource "aws_subnet" "public_subnets" {
+  count       = length(var.publicServers)
+  vpc_id      = aws_vpc.vpc.id
+  cidr_block  = var.publicServers[count.index]
+  availability_zone = var.availability_zone[count.index]
+  tags = {
+    Name = "${var.env}-public-subnets-${count.index+1}"
+  }
+}
+
+#  create Route table for public subnets
+resource "aws_route_table" "public" {
+  count   = length(var.publicServers)
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-public-route-${count.index+1}"
+      }
+  }
+
+#  create a Route
+resource "aws_route" "public_route" {
+  count                     = length(var.publicServers)
+  route_table_id            = aws_route_table.public[count.index].id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+ }
+
+#  connect internet gateway to public subnets
+ resource "aws_route" "public_igw" {
+   count                     = length(var.publicServers)
+   route_table_id            = aws_route_table.public[count.index].id
+   destination_cidr_block    = "0.0.0.0/0"
+   gateway_id                = aws_internet_gateway.igw.id
+  }
+
+#  associate subnets with route table id
+resource "aws_route_table_association" "public" {
+  count          = length(var.publicServers)
+  subnet_id      = aws_subnet.public_subnets[count.index].id
+  route_table_id = aws_route_table.public[count.index].id
+}
 
 
 #  add destination vpc cidr block to default route table id
