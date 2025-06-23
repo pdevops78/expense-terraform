@@ -39,11 +39,12 @@ resource "aws_security_group" "sg" {
       protocol         =    "-1"
       cidr_blocks      =    ["0.0.0.0/0"]
      }
-  }
   tags = {
-    Name = "${var.env}-sg"
+     Name = "${var.env}-sg"
+   }
   }
-}
+
+
 
 
 resource "null_resource" "provisioner" {
