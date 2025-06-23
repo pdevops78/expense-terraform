@@ -1,5 +1,5 @@
-# variable "frontendServers"{}
-# variable "backendServers"{}
+variable "frontendServers"{}
+variable "backendServers"{}
 variable "dbServers"{}
 variable "publicServers"{}
 variable "vpc_cidr_block"{}
