@@ -5,3 +5,4 @@ variable "frontendServers"{}
 variable "availability_zone"{}
 variable "default_vpc_cidr_block"{}
 variable "default_vpc_route_table_id"{}
+variable "publicServers"{}
