@@ -34,3 +34,11 @@ resource "aws_route_table" "frontend" {
     Name = "${var.env}-frontend-route-${count.index+1}"
       }
   }
+
+#  Add Routes for for Frontend route table
+resource "aws_route" "frontend_route" {
+  count                     = length(var.frontendServers)
+  route_table_id            = aws_route_table.frontend[count.index].id
+  destination_cidr_block    = var.default_vpc_cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+ }
