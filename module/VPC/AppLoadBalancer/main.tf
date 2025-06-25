@@ -76,6 +76,14 @@ resource "aws_route" "frontend_route" {
    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
   }
 
+   #  add internet gateway to a public Route
+   resource "aws_route" "public_route" {
+     count                     = length(var.publicServers)
+     route_table_id            = aws_route_table.public[count.index].id
+     destination_cidr_block    = "0.0.0.0/0"
+     vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+    }
+
 #  associate subnets with route table id
 resource "aws_route_table_association" "public" {
   count          = length(var.publicServers)
@@ -89,3 +97,13 @@ resource "aws_route_table_association" "public" {
      destination_cidr_block    = var.vpc_cidr_block
      vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
  }
+
+#  create internet gateway
+#  create  Internet gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name ="${var.env}-ig"
+  }
+}
