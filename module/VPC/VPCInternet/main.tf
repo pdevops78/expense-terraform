@@ -42,7 +42,7 @@ resource "aws_nat_gateway" "nat" {
   }
 }
 # ******************************* frontend  ****************************************
-create frontend subnets / servers
+//create frontend subnets / servers
 resource "aws_subnet" "frontend_subnets" {
   count       = length(var.frontendServers)
   vpc_id      = aws_vpc.vpc.id
