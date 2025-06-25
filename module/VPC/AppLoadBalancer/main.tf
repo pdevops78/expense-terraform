@@ -43,6 +43,13 @@ resource "aws_route" "frontend_route" {
   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
  }
 
+ #  associate subnets with route table id
+ resource "aws_route_table_association" "frontend" {
+   count          = length(var.frontendServers)
+   subnet_id      = aws_subnet.frontend_subnets[count.index].id
+   route_table_id = aws_route_table.frontend[count.index].id
+ }
+
  #  add destination vpc cidr block to default route table id
  resource "aws_route" "default_edit_route" {
      route_table_id            = var.default_vpc_route_table_id
