@@ -78,5 +78,6 @@ env    = var.env
 vpc_cidr_block = var.vpc_cidr_block
 frontendServers = var.frontendServers
 availability_zone = var.availability_zone
+default_vpc_id    = var.default_vpc_id
 }
 
