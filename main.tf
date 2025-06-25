@@ -1,14 +1,14 @@
-# module "frontend" {
+module "frontend" {
 #   depends_on      = [module.backend]
-#   source          = "./module/app"
-#   instance_type   = var.instance_type
-#   component       = "frontend"
-#   env             = var.env
-#   zone_id         = var.zone_id
-#   vault_token     = var.vault_token
-#   subnets         = module.VPCInternet.frontend
-#   vpc_id          = module.VPCInternet.vpc_id
-# }
+  source          = "./module/app"
+  instance_type   = var.instance_type
+  component       = "frontend"
+  env             = var.env
+  zone_id         = var.zone_id
+  vault_token     = var.vault_token
+  subnet_id        = module.AppLoadBalancer.frontend
+  vpc_id          =  module.AppLoadBalancer.vpc_id
+}
 #  module "backend" {
 #    depends_on      = [module.mysql]
 #    source          = "./module/app"
@@ -28,8 +28,8 @@
 #    env             = var.env
 #    zone_id         = var.zone_id
 #    vault_token     = var.vault_token
-#    subnet_id         = module.VPCInternet.db
-#    vpc_id          = module.VPCInternet.vpc_id
+#    subnet_id        = module.AppLoadBalancer.db
+#    vpc_id          = module.AppLoadBalancer.vpc_id
 #
 # }
 
