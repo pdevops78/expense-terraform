@@ -25,3 +25,12 @@ resource "aws_subnet" "frontend_subnets" {
     Name = "${var.env}-frontend-${count.index+1}"
   }
 }
+
+# create Frontend route table
+resource "aws_route_table" "frontend" {
+  count   = length(var.frontendServers)
+  vpc_id = aws_vpc.vpc.id
+  tags = {
+    Name = "${var.env}-frontend-route-${count.index+1}"
+      }
+  }
