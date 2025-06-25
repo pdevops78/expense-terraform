@@ -69,7 +69,7 @@ resource "aws_route" "frontend_route" {
    }
 
  #  create a Route
- resource "aws_route" "public_route" {
+ resource "aws_route" "public_route_ig" {
    count                     = length(var.publicServers)
    route_table_id            = aws_route_table.public[count.index].id
    destination_cidr_block    = var.default_vpc_cidr_block
