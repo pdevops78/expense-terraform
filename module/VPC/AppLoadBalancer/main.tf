@@ -43,7 +43,7 @@ resource "aws_route" "frontend_route" {
   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
  }
   #  add internet gateway to a public Route
-   resource "aws_route" "frontend_route" {
+   resource "aws_route" "frontend_route_nat" {
      count                     = length(var.frontendServers)
      route_table_id            = aws_route_table.frontend[count.index].id
      destination_cidr_block    = "0.0.0.0/0"
