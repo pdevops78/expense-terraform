@@ -87,7 +87,7 @@ publicServers = var.publicServers
 module "ALB"{
 source = "./module/ALB"
 internal = false
-vpc_id = var.vpc_id
+vpc_id = module.AppLoadBalancer.vpc_id
 env= var.env
 subnets = module.AppLoadBalancer.public
 }
