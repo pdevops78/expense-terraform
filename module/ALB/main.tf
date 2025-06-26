@@ -1,6 +1,6 @@
 resource "aws_lb" "alb" {
   name               = "${var.env}-alb"
-  internal           = false
+  internal           = var.internal
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.subnets[0]
