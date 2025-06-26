@@ -1,0 +1,14 @@
+1. create VPC
+2. peer connection between default VPC to custom VPC(road)
+3. create a Route table (traffic between default VPC and custom VPC)
+4. create route table for frontend,backend ,mysql and public subnets
+4. Add routes both sides(default vpc for custom vpc and viceversa)
+5. create subnets (frontend,backend,mysql,public)
+6.create two nat gateways
+7.create internet gateway
+8. add route internet gateway to public servers
+9. add route "nat gateway to frontend servers
+10. associate subnets with route table id (frontend,backend,mysql and public)
+11. create application load balancer
+12. create target group
+13. create listeners
