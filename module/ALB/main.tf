@@ -3,7 +3,7 @@ resource "aws_lb" "alb" {
   internal           = var.internal
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = var.subnets[0]
+  subnets            = var.subnets
     tags = {
     Name = "${var.env}-alb"
   }
