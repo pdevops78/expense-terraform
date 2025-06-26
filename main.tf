@@ -84,7 +84,7 @@ default_vpc_route_table_id = var.default_vpc_route_table_id
 publicServers = var.publicServers
 }
 
-module "AppLoadBalancer"{
+module "ALB"{
 source = "./module/AppLoadBalancer"
 internal = false
 vpc_id = var.vpc_id
