@@ -24,7 +24,7 @@ resource "aws_lb_target_group_attachment" "tg_attach" {
 }
 
 resource "aws_lb_listener" "listener" {
-  load_balancer_arn = aws_lb.front_end.arn
+  load_balancer_arn = aws_lb.alb.arn
   port              = "443"
   protocol          = "HTTP"
   default_action {
