@@ -10,18 +10,18 @@ resource "aws_lb" "alb" {
 }
 
 # create target group
-# resource "aws_lb_target_group" "tg" {
-#   name     = "${var.env}-tg"
-#   port     = 80
-#   protocol = "HTTP"
-#   vpc_id   = var.vpc_id
-# }
-#
-# resource "aws_lb_target_group_attachment" "tg_attach" {
-#   target_group_arn = aws_lb_target_group.tg.id
-#   target_id        = data.aws_instances.app_components.ids[0]
-#   port             = 80
-# }
+resource "aws_lb_target_group" "tg" {
+  name     = "${var.env}-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
+
+resource "aws_lb_target_group_attachment" "tg_attach" {
+  target_group_arn = aws_lb_target_group.tg.id
+  target_id        = data.aws_instances.app_components.ids[0]
+  port             = 80
+}
 
 # create a security group for Application Load Balancer
 
