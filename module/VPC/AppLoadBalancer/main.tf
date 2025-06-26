@@ -66,31 +66,30 @@ resource "aws_subnet" "frontend_subnets" {
    }
  }
  #  create Route table for public subnets
-#  resource "aws_route_table" "public" {
-#    count   = length(var.publicServers)
-#    vpc_id = aws_vpc.vpc.id
-#    tags = {
-#      Name = "${var.env}-public-route-${count.index+1}"
-#        }
-#    }
-#
-#  #  create a Route
-#  resource "aws_route" "public_route_ig" {
-#    count                     = length(var.publicServers)
-#    route_table_id            = aws_route_table.public[count.index].id
-#    destination_cidr_block    = var.default_vpc_cidr_block
-#     vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-#   }
-#
+ resource "aws_route_table" "public" {
+   count   = length(var.publicServers)
+   vpc_id = aws_vpc.vpc.id
+   tags = {
+     Name = "${var.env}-public-route-${count.index+1}"
+       }
+   }
+
+ #  create a Route
+ resource "aws_route" "public_route_ig" {
+   count                     = length(var.publicServers)
+   route_table_id            = aws_route_table.public[count.index].id
+   destination_cidr_block    = var.default_vpc_cidr_block
+    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+  }
+
 #    #  add internet gateway to a public Route
-#    resource "aws_route" "public_route" {
-#      count                     = length(var.publicServers)
-#      route_table_id            = aws_route_table.public[count.index].id
-#      destination_cidr_block    = "0.0.0.0/0"
-#
-#       gateway_id                = aws_internet_gateway.igw.id
-#     }
-#
+   resource "aws_route" "public_route" {
+     count                     = length(var.publicServers)
+     route_table_id            = aws_route_table.public[count.index].id
+     destination_cidr_block    = "0.0.0.0/0"
+     gateway_id                = aws_internet_gateway.igw.id
+    }
+
 # #  associate subnets with route table id
 # resource "aws_route_table_association" "public" {
 #   count          = length(var.publicServers)
@@ -106,13 +105,13 @@ resource "aws_subnet" "frontend_subnets" {
  }
 
 #  create  Internet gateway
-# resource "aws_internet_gateway" "igw" {
-#   vpc_id = aws_vpc.vpc.id
-#
-#   tags = {
-#     Name ="${var.env}-ig"
-#   }
-# }
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.vpc.id
+
+  tags = {
+    Name ="${var.env}-ig"
+  }
+}
 # #  create eip
 # resource "aws_eip" "eip" {
 #     count = length(var.publicServers)
