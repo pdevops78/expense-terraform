@@ -85,7 +85,7 @@ resource "aws_route53_record" "lb_route" {
 resource "aws_lb" "alb" {
   count              = var.lb_needed ? 1 : 0
   name               = "${var.env}-${var.component}-alb"
-  internal           = var.lb_type ? 0 : 1
+  internal           = var.lb_type ? false : true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.lb_subnets
@@ -104,7 +104,7 @@ resource "aws_lb_target_group" "tg" {
 
 resource "aws_lb_target_group_attachment" "tg_attach" {
   target_group_arn = aws_lb_target_group.tg.id
-  target_id        = aws_instance.instance.id
+  target_id        = aws_instance.component.id
   port             = 80
 }
 
