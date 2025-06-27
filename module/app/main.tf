@@ -136,14 +136,15 @@ resource "aws_lb_listener" "listener" {
 # create a security group for Application Load Balancer
 
 resource "aws_security_group" "alb_sg" {
+  count                =    var.lb_needed ? 1 : 0
   name                 =    "${var.env}-alb-sg"
   description          =    "Allow TLS inbound traffic and all outbound traffic"
   vpc_id               =    var.vpc_id
    ingress {
-      from_port        =     0
-      to_port          =     0
+      from_port        =     var.app_port
+      to_port          =     var.app_port
       protocol         =    "-1"
-      cidr_blocks      =    ["0.0.0.0/0"]
+      cidr_blocks      =    var.lb_server_app_port
      }
    egress {
       from_port        =     0
