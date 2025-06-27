@@ -30,13 +30,13 @@ resource "aws_security_group" "sg" {
    ingress {
       from_port        =     22
       to_port          =     22
-      protocol         =    "SSH"
+      protocol         =    "tcp"
       cidr_blocks      =    var.bastion_node
      }
    ingress {
        from_port        =     var.app_port
        to_port          =     var.app_port
-       protocol         =    "TCP"
+       protocol         =    "tcp"
        cidr_blocks      =    var.server_app_port
       }
    egress {
