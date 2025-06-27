@@ -12,6 +12,8 @@ variable "lb_type"{
 default = null
 }
 variable "lb_subnets"{}
+variable "server_app_port"{}
+variable "app_port"{}
 
 
 

@@ -15,6 +15,7 @@ variable "frontendServers"{}
 variable "dbServers"{}
 variable "publicServers"{}
 variable "availability_zone"{}
+variable "bastion_node"{}
 
 
 

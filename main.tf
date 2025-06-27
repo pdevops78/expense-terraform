@@ -11,6 +11,10 @@ module "frontend" {
   lb_needed       = true
   lb_type         = "public"
   lb_subnets      = module.AppLoadBalancer.public
+  server_app_port = var.publicServers
+  lb_server_app_port = ["0.0.0.0/0"]
+  app_port         = 80
+  bastion_node     = var.bastion_node
 }
 #  module "backend" {
 #    depends_on      = [module.mysql]

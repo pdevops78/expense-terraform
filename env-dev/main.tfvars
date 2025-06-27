@@ -15,4 +15,5 @@ backendServers               = ["10.0.0.64/27","10.0.0.96/27"]
 dbServers                    = ["10.0.0.128/27","10.0.0.160/27"]
 publicServers                = ["10.0.0.192/27","10.0.0.224/27"]
 availability_zone            = ["us-east-1a","us-east-1b"]
+bastion_node                 = ["172.31.28.3/32"]
 
