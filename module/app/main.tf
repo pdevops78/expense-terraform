@@ -78,7 +78,7 @@ resource "aws_route53_record" "lb_route" {
   name               = "${var.component}-${var.env}.pdevops78.online"
   type               = "CNAME"
   zone_id            = var.zone_id
-  records            = [aws_lb.alb.dns_name]
+  records            = [aws_lb.alb[0].dns_name]
   ttl                = 30
 }
 
@@ -115,7 +115,7 @@ resource "aws_lb_listener" "listener" {
   protocol          = "HTTP"
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.tg.arn
+    target_group_arn = aws_lb_target_group.tg[0].arn
   }
   }
 
