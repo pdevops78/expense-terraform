@@ -89,12 +89,12 @@ default_vpc_route_table_id = var.default_vpc_route_table_id
 publicServers = var.publicServers
 }
 
-module "ALB"{
-source = "./module/ALB"
-internal = false
-vpc_id = module.AppLoadBalancer.vpc_id
-env= var.env
-subnets = module.AppLoadBalancer.public
-}
+# module "ALB"{
+# source = "./module/ALB"
+# internal = false
+# vpc_id = module.AppLoadBalancer.vpc_id
+# env= var.env
+# subnets = module.AppLoadBalancer.public
+# }
 
 
