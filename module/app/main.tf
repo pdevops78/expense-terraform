@@ -85,7 +85,7 @@ resource "aws_route53_record" "lb_route" {
 resource "aws_lb" "alb" {
   count              = var.lb_needed ? 1 : 0
   name               = "${var.env}-${var.component}-alb"
-  internal           = var.lb_type ? false : true
+  internal           = var.lb_type == "public" ? false : true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.lb_subnets
