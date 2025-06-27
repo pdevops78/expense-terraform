@@ -96,6 +96,7 @@ resource "aws_lb" "alb" {
 
 # create target group
 resource "aws_lb_target_group" "tg" {
+  count    = var.lb_needed ? 1 : 0
   name     = "${var.env}-tg"
   port     = 80
   protocol = "HTTP"
@@ -103,13 +104,13 @@ resource "aws_lb_target_group" "tg" {
 }
 
 resource "aws_lb_target_group_attachment" "tg_attach" {
-  target_group_arn = aws_lb_target_group.tg.id
+  target_group_arn = aws_lb_target_group.tg[0].id
   target_id        = aws_instance.component.id
   port             = 80
 }
 
 resource "aws_lb_listener" "listener" {
-  load_balancer_arn = aws_lb.alb.arn
+  load_balancer_arn = aws_lb.alb[0].arn
   port              = "80"
   protocol          = "HTTP"
   default_action {
