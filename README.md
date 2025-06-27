@@ -40,3 +40,87 @@ listeners listen protocol and port(http,80)
 so here if the http(user hits) sends traffic to target group(https)
 http traffic should not convert to https
 
+
+wide open security group means to allow all ports (0.0.0.0/0)
+open application security group (frontend: 80, backend:8080,mysql: 3306) 
+=========================================================================
+with ALB:
+----------
+mysql port :3306 
+backend port: 8080
+frontend port: 80
+
+Load Balancer forward requests to frontend and receive the traffic:
+frontend component: app_port is 80 , public subnets can access frontend component
+backend component: app_port is 8080, frontend subnets can access backend component and for backend there is another load balancer
+load balancer type is private connect to backend itself 
+frontend subnets and backend subnets
+mysql component: app_port is 3306 , access by backend subnets(for mysql there is no load balancer)
+
+Example Use Case
+Your MySQL DB is running on an EC2 instance or RDS with port 3306 open
+
+Your backend EC2 instances (with backend_sg) need to connect to that MySQL DB
+
+Then your rule works perfectly to allow this specific traffic:
+
+From: backend instances (with backend_sg)
+
+To: MySQL server (port 3306)
+
+Using: TCP
+
+--------------------------------------------------------------
+applications servers only open in security group:
+----------------------------------------------------
+loadbalancer can access frontend(means public subnets connects to nginx port 80)
+frontend: server_app_port: public subnets
+app_port : 80
+
+2. frontend subnets access by backend subnets and itself backend( means nginx port connects nodejs port)
+3. backend subnets access by mysql subnets (means backend connects mysql port 3306)
+
+LoadBalancer application ports:
+================================
+frontend : lb_app_port: [0.0.0.0/0] , load balancer forward to the frontend
+backend: frontend subnets access backend subnets
+
+
+steps to follow to create load balancer:
+-----------------------------------------
+1. create load balancer
+2. Load balancer should be created in public subnets, because required internet
+3. user sends the request, request receive by load balancer
+4. Load balancer forwards request to frontend instance , not for frontend subnets
+5. frontend module provides public subnets to create a loadbalancer, because frontend instance has to expose data out through internet from private subnets
+6. create two load balancer , one is for frontend (public) and another one is for backend(private)
+
+
+Security Group Rules (summary):
+Frontend SG → allow outbound to backend LB on port 8080.
+
+Backend LB SG → allow inbound from frontend SG on port 8080.
+
+Backend SG → allow outbound to MySQL SG on port 3306.
+
+MySQL SG → allow inbound from backend SG on port 3306.
+
+┌────────────┐       ┌────────────────────────────┐       ┌────────────┐
+│  Internet  │──────▶│ Frontend Load Balancer (public) │────▶ Frontend │
+└────────────┘       └────────────────────────────┘       └─────┬──────┘
+Port 8080 │
+▼
+┌────────────────────────────┐       ┌────────────┐
+│ Backend Load Balancer (private)│───▶ Backend   │
+└────────────────────────────┘       └─────┬──────┘
+Port 3306 │
+▼
+┌────────────┐
+│   MySQL    │
+└────────────┘
+
+1. Security group rules:
+=========================
+* backend instances access mysql means backend instance ip  connects to mysql with port 3306 [so mysql allows backend subnets with listen 3306]
+* ports are allowed ips' or cidr block in security group
+* 

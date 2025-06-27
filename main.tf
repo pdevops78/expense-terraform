@@ -6,8 +6,11 @@ module "frontend" {
   env             = var.env
   zone_id         = var.zone_id
   vault_token     = var.vault_token
-  subnet_id        = module.AppLoadBalancer.frontend
-  vpc_id          =  module.AppLoadBalancer.vpc_id
+  subnet_id       = module.AppLoadBalancer.frontend
+  vpc_id          = module.AppLoadBalancer.vpc_id
+  lb_needed       = true
+  lb_type         = "public"
+  lb_subnets      = module.AppLoadBalancer.public
 }
 #  module "backend" {
 #    depends_on      = [module.mysql]
@@ -19,6 +22,8 @@ module "frontend" {
 #    vault_token     = var.vault_token
 #    subnets         = module.VPCInternet.backend
 #     vpc_id          = module.VPCInternet.vpc_id
+#     lb_needed       = true
+#     lb_type        = "private"
 #    }
 #
 # module "mysql" {
@@ -91,3 +96,5 @@ vpc_id = module.AppLoadBalancer.vpc_id
 env= var.env
 subnets = module.AppLoadBalancer.public
 }
+
+

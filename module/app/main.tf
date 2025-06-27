@@ -64,7 +64,8 @@ resource "aws_security_group" "sg" {
 #   }
 #
 # }
-resource "aws_route53_record" "route" {
+resource "aws_route53_record" "server_route" {
+  count              = var.lb_needed ? 0 : 1
   name               = "${var.component}-${var.env}.pdevops78.online"
   type               = "A"
   zone_id            = var.zone_id
@@ -72,6 +73,71 @@ resource "aws_route53_record" "route" {
   ttl                = 30
 }
 
+resource "aws_route53_record" "lb_route" {
+  count              = var.lb_needed ? 1 : 0
+  name               = "${var.component}-${var.env}.pdevops78.online"
+  type               = "CNAME"
+  zone_id            = var.zone_id
+  records            = [aws_lb.alb.dns_name]
+  ttl                = 30
+}
 
+resource "aws_lb" "alb" {
+  count              = var.lb_needed ? 1 : 0
+  name               = "${var.env}-${var.component}-alb"
+  internal           = var.lb_type ? 0 : 1
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb_sg.id]
+  subnets            = var.lb_subnets
+    tags = {
+    Name = "${var.env}-${var.component}-alb"
+  }
+}
 
+# create target group
+resource "aws_lb_target_group" "tg" {
+  name     = "${var.env}-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+}
+
+resource "aws_lb_target_group_attachment" "tg_attach" {
+  target_group_arn = aws_lb_target_group.tg.id
+  target_id        = aws_instance.instance.id
+  port             = 80
+}
+
+resource "aws_lb_listener" "listener" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = "80"
+  protocol          = "HTTP"
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tg.arn
+  }
+  }
+
+# create a security group for Application Load Balancer
+
+resource "aws_security_group" "alb_sg" {
+  name                 =    "${var.env}-alb-sg"
+  description          =    "Allow TLS inbound traffic and all outbound traffic"
+  vpc_id               =    var.vpc_id
+   ingress {
+      from_port        =     0
+      to_port          =     0
+      protocol         =    "-1"
+      cidr_blocks      =    ["0.0.0.0/0"]
+     }
+   egress {
+      from_port        =     0
+      to_port          =     0
+      protocol         =    "-1"
+      cidr_blocks      =    ["0.0.0.0/0"]
+     }
+  tags = {
+     Name = "${var.env}-alb"
+   }
+  }
 
