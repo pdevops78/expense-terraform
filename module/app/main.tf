@@ -93,7 +93,7 @@ resource "aws_lb" "alb" {
   name               = "${var.env}-${var.component}-alb"
   internal           = var.lb_type == "public" ? false : true
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
+  security_groups    = [aws_security_group.alb_sg[0].id]
   subnets            = var.lb_subnets
     tags = {
     Name = "${var.env}-${var.component}-alb"
@@ -113,8 +113,7 @@ resource "aws_lb_target_group" "tg" {
      timeout = 5
      healthy_threshold = 2
      unhealthy_threshold = 2
-     deregistration_delay = 15
- }
+   }
 }
 
 resource "aws_lb_target_group_attachment" "tg_attach" {
