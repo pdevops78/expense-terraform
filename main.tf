@@ -6,11 +6,11 @@ module "frontend" {
   env             = var.env
   zone_id         = var.zone_id
   vault_token     = var.vault_token
-  subnet_id       = module.AppLoadBalancer.frontend
-  vpc_id          = module.AppLoadBalancer.vpc_id
+#   subnet_id       = module.AppLoadBalancer.frontend
+#   vpc_id          = module.AppLoadBalancer.vpc_id
   lb_needed       = true
   lb_type         = "public"
-  lb_subnets      = module.AppLoadBalancer.public
+#   lb_subnets      = module.AppLoadBalancer.public
   server_app_port = var.publicServers
   lb_server_app_port = ["0.0.0.0/0"]
   app_port         = 80
@@ -84,17 +84,17 @@ module "frontend" {
 # default_vpc_route_table_id = var.default_vpc_route_table_id
 # }
 
-module "AppLoadBalancer"{
-source  = "./module/VPC/AppLoadBalancer"
-env    = var.env
-vpc_cidr_block = var.vpc_cidr_block
-frontendServers = var.frontendServers
-availability_zone = var.availability_zone
-default_vpc_id    = var.default_vpc_id
-default_vpc_cidr_block = var.default_vpc_cidr_block
-default_vpc_route_table_id = var.default_vpc_route_table_id
-publicServers = var.publicServers
-}
+# module "AppLoadBalancer"{
+# source  = "./module/VPC/AppLoadBalancer"
+# env    = var.env
+# vpc_cidr_block = var.vpc_cidr_block
+# frontendServers = var.frontendServers
+# availability_zone = var.availability_zone
+# default_vpc_id    = var.default_vpc_id
+# default_vpc_cidr_block = var.default_vpc_cidr_block
+# default_vpc_route_table_id = var.default_vpc_route_table_id
+# publicServers = var.publicServers
+# }
 
 # module "ALB"{
 # source = "./module/ALB"
