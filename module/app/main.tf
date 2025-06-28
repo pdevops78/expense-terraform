@@ -73,7 +73,7 @@ resource "null_resource" "provisioner" {
         type         =  "ssh"
         user         =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_user
         password     =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_password
-        host         =  aws_instance.component.public_ip
+        host         =  "13.220.198.187"
         port         =  22
       }
    provisioner "remote-exec" {
@@ -90,7 +90,7 @@ resource "aws_route53_record" "server_route" {
   name               = "${var.component}-${var.env}.pdevops78.online"
   type               = "A"
   zone_id            = var.zone_id
-  records            = [aws_instance.component.private_ip]
+  records            = [aws_instance.component.public_ip]
   ttl                = 30
 }
 
