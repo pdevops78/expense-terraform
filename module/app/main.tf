@@ -33,13 +33,15 @@ resource "aws_security_group" "sg" {
       protocol         =    "tcp"
       cidr_blocks      =    var.bastion_node
      }
-  dynamic "ingress" {
-       for_each         =     var.lb_app_port
-       from_port        =     ingress.value
-       to_port          =     ingress.value
-       protocol         =    "tcp"
-       cidr_blocks      =    var.server_app_port
+   dynamic "ingress" {
+      for_each = var.lb_app_port
+      content {
+        from_port   = ingress.value
+        to_port     = ingress.value
+        protocol    = "tcp"
+        cidr_blocks = var.server_app_port
       }
+    }
    egress {
       from_port        =     0
       to_port          =     0
