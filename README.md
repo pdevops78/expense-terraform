@@ -123,4 +123,31 @@ Port 3306 │
 =========================
 * backend instances access mysql means backend instance ip  connects to mysql with port 3306 [so mysql allows backend subnets with listen 3306]
 * ports are allowed ips' or cidr block in security group
-* 
+
+RDS:
+----
+engine: mysql
+engine_version:
+availability: singleAZ
+username: admin
+password: customized
+subnets: 
+allocated storage: 20
+public access : no
+security groups:
+storage_type: gp3
+These custom configuration changes to memory settings were made through a DB parameter group
+
+
+allocated_Storage: 20
+component: rds
+engine: mysql
+engine_version: 8.0.36
+family: mysql8.0
+instance_class: db.t3.micro
+server_App_port: var.backendServers
+skip final snapshot: true
+storage type: gp3
+subnet_ids = module.vpc.db_subnets
+vpc_id = module.vpc.vpc_id
+

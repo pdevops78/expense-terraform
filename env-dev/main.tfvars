@@ -16,4 +16,6 @@ dbServers                    = ["10.0.0.128/27","10.0.0.160/27"]
 publicServers                = ["10.0.0.192/27","10.0.0.224/27"]
 availability_zone            = ["us-east-1a","us-east-1b"]
 bastion_node                 = ["172.31.28.3/32"]
+certificate_arn              = "arn:aws:acm:us-east-1:041445559784:certificate/15f6ea3c-b316-4933-a3b7-3bc71ce13c90"
+ssl_policy                   = "ELBSecurityPolicy-TLS13-1-3-2021-06"
 
