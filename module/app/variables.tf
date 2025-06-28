@@ -16,6 +16,8 @@ variable "server_app_port"{}
 variable "app_port"{}
 variable "lb_server_app_port"{}
 variable "bastion_node"{}
+variable "certificate_arn"{}
+variable "ssl_policy"{}
 
 
 
