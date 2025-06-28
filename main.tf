@@ -14,6 +14,7 @@ module "frontend" {
   server_app_port = var.publicServers
   lb_server_app_port = ["0.0.0.0/0"]
   app_port         = 80
+  lb_app_port      = {http:80,https:443}
   bastion_node     = var.bastion_node
   certificate_arn  = var.certificate_arn
   ssl_policy       = var.ssl_policy
