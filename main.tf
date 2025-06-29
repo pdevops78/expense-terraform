@@ -84,17 +84,17 @@ module "frontend" {
 # default_vpc_route_table_id = var.default_vpc_route_table_id
 # }
 
-# module "AppLoadBalancer"{
-# source  = "./module/VPC/AppLoadBalancer"
-# env    = var.env
-# vpc_cidr_block = var.vpc_cidr_block
-# frontendServers = var.frontendServers
-# availability_zone = var.availability_zone
-# default_vpc_id    = var.default_vpc_id
-# default_vpc_cidr_block = var.default_vpc_cidr_block
-# default_vpc_route_table_id = var.default_vpc_route_table_id
-# publicServers = var.publicServers
-# }
+module "AppLoadBalancer"{
+source  = "./module/VPC/AppLoadBalancer"
+env    = var.env
+vpc_cidr_block = var.vpc_cidr_block
+frontendServers = var.frontendServers
+availability_zone = var.availability_zone
+default_vpc_id    = var.default_vpc_id
+default_vpc_cidr_block = var.default_vpc_cidr_block
+default_vpc_route_table_id = var.default_vpc_route_table_id
+publicServers = var.publicServers
+}
 
 # module "ALB"{
 # source = "./module/ALB"
@@ -103,5 +103,18 @@ module "frontend" {
 # env= var.env
 # subnets = module.AppLoadBalancer.public
 # }
+
+
+module "rds"{
+source = "./module/rds"
+allocated_storage = 20
+engine = "mysql"
+engine_version = "MySQL8.0.36"
+instance_class = "db.t3.micro"
+storage_type = "gp3"
+publicly_accessible = "no"
+family = "mysql8.0"
+multi_az = false
+}
 
 
