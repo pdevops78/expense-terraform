@@ -9,4 +9,6 @@ variable "instance_class"{}
 variable "subnet_ids"{}
 variable "storage_type"{}
 variable "vpc_id"{}
-variable "access_sg_app_port"{}
+variable "server_app_port"{}
+variable "multi_az"{}
+variable "publicly_accessible"{}

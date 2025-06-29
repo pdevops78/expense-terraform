@@ -107,6 +107,7 @@ publicServers = var.publicServers
 
 module "rds"{
 source = "./module/rds"
+component="mysql"
 allocated_storage = 20
 engine = "mysql"
 engine_version = "MySQL8.0.36"
@@ -115,6 +116,10 @@ storage_type = "gp3"
 publicly_accessible = "no"
 family = "mysql8.0"
 multi_az = false
+vpc_id = module.AppLoadBalancer.vpc_id
+env=var.env
+skip_final_snapshot = true
+server_app_port = var.backendServers
 }
 
 
