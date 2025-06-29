@@ -18,6 +18,7 @@ variable "availability_zone"{}
 variable "bastion_node"{}
 variable "certificate_arn"{}
 variable "ssl_policy"{}
+variable "kms_key_id"{}
 
 
 
