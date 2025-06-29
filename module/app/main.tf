@@ -55,14 +55,14 @@ resource "null_resource" "provisioner" {
         type         =  "ssh"
         user         =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_user
         password     =  jsondecode(data.vault_generic_secret.get_secrets.data_json).ansible_password
-        host         =  "13.220.198.187"
+        host         =  aws_instance.component.private_ip
         port         =  22
       }
    provisioner "remote-exec" {
     inline = [
       "sudo pip3.11 install ansible hvac",
       "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-ansible getsecrets.yml -e env=${var.env} -e component_name=${var.component} -e project_name=expense",
-      "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-ansible expense.yml -e env=${var.env} -e component_name=${var.component} -e @secrets.json -e @app.json"
+      "ansible-pull -i localhost, -U https://github.com/pdevops78/expense-ansible expense.yml -e env=${var.env} -e component_name=${var.component} -e @~/secrets.json"
     ]
   }
 
