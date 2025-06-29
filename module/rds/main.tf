@@ -7,7 +7,7 @@ resource "aws_db_instance" "db_instance" {
   engine_version         = var.engine_version
   username               = jsondecode(data.vault_generic_secret.vault-secrets.data_json).rds_username
   password               = jsondecode(data.vault_generic_secret.vault-secrets.data_json).rds_password
-  parameter_group_name   = aws_db_parameter_group.parameter_group
+  parameter_group_name   = aws_db_parameter_group.parameter_group.name
   skip_final_snapshot    = var.skip_final_snapshot
   multi_az               = false
   publicly_accessible    = false
