@@ -1,7 +1,5 @@
 variable "env"{}
 variable "instance_type"{}
-//variable "ssh_user"{}
-//variable "ssh_pass"{}
 variable "zone_id"{}
 variable "vault_token"{}
 variable "vpc_cidr_block"{}
@@ -19,6 +17,7 @@ variable "bastion_node"{}
 variable "certificate_arn"{}
 variable "ssl_policy"{}
 variable "kms_key_id"{}
+variable "volume_type"{}
 
 
 

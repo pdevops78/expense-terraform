@@ -18,6 +18,7 @@ module "frontend" {
   bastion_node     = var.bastion_node
   certificate_arn  = var.certificate_arn
   ssl_policy       = var.ssl_policy
+  volume_type = var.volume_type
 }
 #  module "backend" {
 #    depends_on      = [module.mysql]

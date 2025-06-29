@@ -19,4 +19,5 @@ bastion_node                 = ["172.31.28.3/32"]
 certificate_arn              = "arn:aws:acm:us-east-1:041445559784:certificate/15f6ea3c-b316-4933-a3b7-3bc71ce13c90"
 ssl_policy                   = "ELBSecurityPolicy-TLS13-1-3-2021-06"
 kms_key_id                    = "arn:aws:kms:us-east-1:041445559784:key/7d44c002-f50e-4632-ba6f-84b7b512987f"
+volume_type                  = "gp3"
 

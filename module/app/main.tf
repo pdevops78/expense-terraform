@@ -10,6 +10,13 @@ resource "aws_instance" "component" {
         spot_instance_type             = "persistent"
       }
     }
+#  to encrypt the disk by using kms key id
+root_block_device {
+    encrypted    = true
+    kms_key_id   = var.kms_key_id
+    volume_type  = var.volume_type
+    }
+
     tags = {
     Name = var.component
     monitor= "yes"
