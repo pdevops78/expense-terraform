@@ -12,3 +12,4 @@ variable "vpc_id"{}
 variable "server_app_port"{}
 variable "multi_az"{}
 variable "publicly_accessible"{}
+

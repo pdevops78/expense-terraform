@@ -116,7 +116,6 @@ storage_type = "gp3"
 publicly_accessible = "no"
 family = "mysql8.0"
 multi_az = false
-dbServers   = var.dbServers
 vpc_id = module.AppLoadBalancer.vpc_id
 env=var.env
 skip_final_snapshot = true
