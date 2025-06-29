@@ -28,7 +28,7 @@ resource "aws_subnet" "frontend_subnets" {
 
 #  create db subnets
 resource "aws_subnet" "db_subnets" {
-  count       = length(var.dbervers)
+  count       = length(var.dbServers)
   vpc_id      = aws_vpc.vpc.id
   cidr_block  = var.dbServers[count.index]
   availability_zone = var.availability_zone[count.index]
