@@ -122,6 +122,7 @@ env=var.env
 skip_final_snapshot = true
 server_app_port = var.backendServers
 subnet_id = module.AppLoadBalancer.db
+kms_key_id = var.kms_key_id
 }
 
 
