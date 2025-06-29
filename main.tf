@@ -6,11 +6,11 @@ module "frontend" {
   env             = var.env
   zone_id         = var.zone_id
   vault_token     = var.vault_token
-#   subnet_id       = module.AppLoadBalancer.frontend
-#   vpc_id          = module.AppLoadBalancer.vpc_id
+  subnet_id       = module.AppLoadBalancer.frontend
+  vpc_id          = module.AppLoadBalancer.vpc_id
   lb_needed       = true
   lb_type         = "public"
-#   lb_subnets      = module.AppLoadBalancer.public
+  lb_subnets      = module.AppLoadBalancer.public
   server_app_port = var.publicServers
   lb_server_app_port = ["0.0.0.0/0"]
   app_port         = 80
