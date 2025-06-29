@@ -151,3 +151,22 @@ storage type: gp3
 subnet_ids = module.vpc.db_subnets
 vpc_id = module.vpc.vpc_id
 
+KMS key:  create kms key
+========
+which is used to encrypt or decrypt the disk in VM's or rds to take backup
+rds:
+===
+to encrypt storage disk device
+
+vm's:
+=====
+to encrypt storage disk device while creating an instance
+here there is a problem while creating a new VM/instance null resource won't execute , so to overcome this problem we use triggers block inside null resource.
+this triggers block will work only null resource.
+
+two types of backups are there:
+-------------------------------
+1. storage backup
+2. native backup (mysql dump)
+
+
