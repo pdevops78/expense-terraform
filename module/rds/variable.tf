@@ -6,7 +6,7 @@ variable "allocated_storage"{}
 variable "skip_final_snapshot"{}
 variable "family"{}
 variable "instance_class"{}
-variable "subnet_ids"{}
+variable "subnet_id"{}
 variable "storage_type"{}
 variable "vpc_id"{}
 variable "server_app_port"{}

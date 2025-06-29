@@ -20,7 +20,7 @@ resource "aws_db_parameter_group" "parameter_group" {
 }
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "${var.component}-${var.env}-sg"
-  subnet_ids = var.subnet_ids
+  subnet_ids = var.subnet_id
 
   tags = {
     Name = "${var.component}-${var.env}-sg"

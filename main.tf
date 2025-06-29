@@ -121,7 +121,7 @@ vpc_id = module.AppLoadBalancer.vpc_id
 env=var.env
 skip_final_snapshot = true
 server_app_port = var.backendServers
-subnet_ids = module.AppLoadBalancer.db
+subnet_id = module.AppLoadBalancer.db
 }
 
 
