@@ -12,6 +12,7 @@ resource "aws_db_instance" "db_instance" {
   multi_az               = false
   publicly_accessible    = false
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
+  vpc_security_group_ids = [aws_security_group.sg.id]
 }
 resource "aws_db_parameter_group" "parameter_group" {
   name   = "${var.component}-${var.env}-pg"
