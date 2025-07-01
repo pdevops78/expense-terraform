@@ -33,7 +33,7 @@ resource "aws_autoscaling_group" "asg" {
 # create a load balancer
 resource "aws_lb" "alb" {
   name               = "${var.env}-${var.component}-alb"
-  internal           = var.lb_type == "public" ? true : false
+  internal           = var.lb_type == "public" ? false : true
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.lb_subnets
@@ -142,12 +142,12 @@ resource "aws_security_group" "alb_sg" {
   description          =    "Allow TLS inbound traffic and all outbound traffic"
   vpc_id               =    var.vpc_id
   dynamic "ingress" {
-        for_each = var.lb_server_app_port
+        for_each = var.lb_app_port
         content {
                 from_port   = ingress.value
                 to_port     = ingress.value
                 protocol    = "tcp"
-                cidr_blocks = var.lb_server_app_cidr
+                cidr_blocks =  var.lb_server_app_cidr
                 }
        }
    egress {

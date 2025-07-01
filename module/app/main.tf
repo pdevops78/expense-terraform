@@ -181,7 +181,7 @@ resource "aws_security_group" "alb_sg" {
               from_port   = ingress.value
               to_port     = ingress.value
               protocol    = "tcp"
-              cidr_blocks      =    var.lb_server_app_port
+              cidr_blocks      =  var.lb_server_app_port
               }
      }
    egress {

@@ -7,7 +7,7 @@ variable "server_app_cidr"{}
 variable "vpc_id"{}
 variable "bastion_node"{}
 variable "lb_subnets"{}
-variable "lb_server_app_port"{}
+variable "lb_app_port"{}
 variable "lb_server_app_cidr"{}
 variable "lb_type"{
   default = false
