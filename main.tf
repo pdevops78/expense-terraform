@@ -57,6 +57,7 @@ lb_type            = "private"
 ssl_policy         = var.ssl_policy
 certificate_arn    = var.certificate_arn
 zone_id            = var.zone_id
+
 }
 
 # module "rds"{
@@ -154,6 +155,7 @@ default_vpc_cidr_block = var.default_vpc_cidr_block
 default_vpc_route_table_id = var.default_vpc_route_table_id
 publicServers = var.publicServers
 dbServers     = var.dbServers
+backendServers = var.backendServers
 }
 
 # module "ALB"{
