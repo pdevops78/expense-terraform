@@ -34,6 +34,9 @@ bastion_node       = var.bastion_node
 lb_subnets         = module.AppLoadBalancer.public
 lb_server_app_port = {http:80,https:443}
 lb_server_app_cidr = ["0.0.0.0/0"]
+lb_type            = "public"
+ssl_policy         = var.ssl_policy
+certificate_arn    = var.certificate_arn
 }
 
 #  module "backend" {
