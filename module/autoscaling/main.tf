@@ -9,8 +9,6 @@ resource "aws_launch_template" "template" {
      env         = var.env
 
    }))
- )
-
 
   tags = {
   Name = "${var.component}-${var.env}-lt"
