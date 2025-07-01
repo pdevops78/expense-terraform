@@ -29,7 +29,7 @@ instance_type = var.instance_type
 subnet_id = module.AppLoadBalancer.frontend
 server_app_port  = var.publicServers
 app_port = 80
-vpc_id = var.vpc_id
+vpc_id = module.AppLoadBalancer.vpc_id
 bastion_node = var.bastion_node
 }
 
