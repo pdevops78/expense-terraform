@@ -26,7 +26,7 @@ resource "aws_autoscaling_group" "asg" {
 resource "aws_lb" "alb" {
   name               = "${var.env}-${var.component}-alb"
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg[0].id]
+  security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.lb_subnets
     tags = {
     Name = "${var.env}-${var.component}-alb"
@@ -47,12 +47,7 @@ resource "aws_lb_target_group" "tg" {
    }
 }
 
-#  attach to an existing load balancer to autoscaling
-resource "aws_autoscaling_attachment" "asg_attach" {
-  autoscaling_group_name = aws_autoscaling_group.asg.id
-  elb                    = aws_elb.alb.id
-  lb_target_group_arn    = aws_lb_target_group.tg.arn
-}
+
 
 #  create a security group for custom VPC
 resource "aws_security_group" "sg" {
