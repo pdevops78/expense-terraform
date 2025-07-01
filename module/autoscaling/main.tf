@@ -102,7 +102,7 @@ resource "aws_route53_record" "lb_route" {
 
 #  create a security group for custom VPC
 resource "aws_security_group" "sg" {
-  name                 =    "${var.env}-custom-vpc-sg"
+  name                 =    "${var.env}-${var.component}-custom-vpc-sg"
   description          =    "Allow TLS inbound traffic and all outbound traffic"
   vpc_id               =    var.vpc_id
    ingress {
@@ -129,7 +129,7 @@ resource "aws_security_group" "sg" {
   }
 
 resource "aws_security_group" "alb_sg" {
-  name                 =    "${var.env}-alb-sg"
+  name                 =    "${var.env}-${var.component}-alb-sg"
   description          =    "Allow TLS inbound traffic and all outbound traffic"
   vpc_id               =    var.vpc_id
   dynamic "ingress" {
