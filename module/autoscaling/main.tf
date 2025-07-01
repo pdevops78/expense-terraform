@@ -44,7 +44,7 @@ resource "aws_lb" "alb" {
 
 #  create target group
 resource "aws_lb_target_group" "tg" {
-  name     = "${var.env}-tg"
+  name     = "${var.env}-${var.component}-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc_id
@@ -157,7 +157,7 @@ resource "aws_security_group" "alb_sg" {
       cidr_blocks      =    ["0.0.0.0/0"]
      }
   tags = {
-     Name = "${var.env}-alb"
+     Name = "${var.env}-${var.component}-alb"
    }
   }
 
