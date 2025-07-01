@@ -9,7 +9,9 @@ variable "bastion_node"{}
 variable "lb_subnets"{}
 variable "lb_server_app_port"{}
 variable "lb_server_app_cidr"{}
-variable "lb_type"{}
+variable "lb_type"{
+  default = false
+    }
 variable "ssl_policy"{}
 variable "certificate_arn"{}
 variable "zone_id"{}
