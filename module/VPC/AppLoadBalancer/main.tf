@@ -97,8 +97,6 @@ resource "aws_route" "frontend_route" {
     route_table_id = aws_route_table.backend[count.index].id
   }
 
-
-
  #  create db subnets
  resource "aws_subnet" "db_subnets" {
    count       = length(var.dbServers)
