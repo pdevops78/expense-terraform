@@ -22,6 +22,38 @@ resource "aws_autoscaling_group" "asg" {
   }
   }
 
+
+resource "aws_lb" "alb" {
+  name               = "${var.env}-${var.component}-alb"
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb_sg[0].id]
+  subnets            = var.lb_subnets
+    tags = {
+    Name = "${var.env}-${var.component}-alb"
+  }
+}
+#  create target group
+resource "aws_lb_target_group" "tg" {
+  name     = "${var.env}-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = var.vpc_id
+ health_check {
+     interval = 30
+     path = "/health"
+     timeout = 5
+     healthy_threshold = 2
+     unhealthy_threshold = 2
+   }
+}
+
+#  attach to an existing load balancer to autoscaling
+resource "aws_autoscaling_attachment" "asg_attach" {
+  autoscaling_group_name = aws_autoscaling_group.asg.id
+  elb                    = aws_elb.alb.id
+  lb_target_group_arn    = aws_lb_target_group.tg.arn
+}
+
 #  create a security group for custom VPC
 resource "aws_security_group" "sg" {
   name                 =    "${var.env}-custom-vpc-sg"
