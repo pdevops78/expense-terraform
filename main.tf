@@ -1,25 +1,36 @@
-module "frontend" {
-#   depends_on      = [module.backend]
-  source          = "./module/app"
-  instance_type   = var.instance_type
-  component       = "frontend"
-  env             = var.env
-  zone_id         = var.zone_id
-  vault_token     = var.vault_token
-  subnet_id       = module.AppLoadBalancer.frontend
-  vpc_id          = module.AppLoadBalancer.vpc_id
-  lb_needed       = true
-  lb_type         = "public"
-  lb_subnets      = module.AppLoadBalancer.public
-  server_app_port = var.publicServers
-  lb_server_app_port = ["0.0.0.0/0"]
-  app_port         = 80
-  lb_app_port      = {http:80,https:443}
-  bastion_node     = var.bastion_node
-  certificate_arn  = var.certificate_arn
-  ssl_policy       = var.ssl_policy
-  volume_type = var.volume_type
+# module "frontend" {
+# #   depends_on      = [module.backend]
+#   source          = "./module/app"
+#   instance_type   = var.instance_type
+#   component       = "frontend"
+#   env             = var.env
+#   zone_id         = var.zone_id
+#   vault_token     = var.vault_token
+#   subnet_id       = module.AppLoadBalancer.frontend
+#   vpc_id          = module.AppLoadBalancer.vpc_id
+#   lb_needed       = true
+#   lb_type         = "public"
+#   lb_subnets      = module.AppLoadBalancer.public
+#   server_app_port = var.publicServers
+#   lb_server_app_port = ["0.0.0.0/0"]
+#   app_port         = 80
+#   lb_app_port      = {http:80,https:443}
+#   bastion_node     = var.bastion_node
+#   certificate_arn  = var.certificate_arn
+#   ssl_policy       = var.ssl_policy
+#   volume_type = var.volume_type
+# }
+
+module "frontend"{
+source = "./module/autoscaling"
+component = "frontend"
+env = var.env
+instance_type = var.internal
+subnet_id = module.VPCInternet.frontend
+server_app_port  = var.publicServers
+app_port = 80
 }
+
 #  module "backend" {
 #    depends_on      = [module.mysql]
 #    source          = "./module/app"
@@ -107,23 +118,24 @@ dbServers     = var.dbServers
 # }
 
 
-module "rds"{
-source = "./module/rds"
-component="mysql"
-allocated_storage = 20
-engine = "mysql"
-engine_version = "8.0.36"
-instance_class = "db.t3.micro"
-storage_type = "gp3"
-publicly_accessible = "no"
-family = "mysql8.0"
-multi_az = false
-vpc_id = module.AppLoadBalancer.vpc_id
-env=var.env
-skip_final_snapshot = true
-server_app_port = var.backendServers
-subnet_id = module.AppLoadBalancer.db
-kms_key_id = var.kms_key_id
-}
+# module "rds"{
+# source = "./module/rds"
+# component="mysql"
+# allocated_storage = 20
+# engine = "mysql"
+# engine_version = "8.0.36"
+# instance_class = "db.t3.micro"
+# storage_type = "gp3"
+# publicly_accessible = "no"
+# family = "mysql8.0"
+# multi_az = false
+# vpc_id = module.AppLoadBalancer.vpc_id
+# env=var.env
+# skip_final_snapshot = true
+# server_app_port = var.backendServers
+# subnet_id = module.AppLoadBalancer.db
+# kms_key_id = var.kms_key_id
+# }
+
 
 

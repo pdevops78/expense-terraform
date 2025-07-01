@@ -1,0 +1,47 @@
+problem: what if VM goes down
+single server for each component:
+
+sol:
+
+* to create an instance once through launch template
+* reusable the same instance
+* create autoscaling group
+* attach these instance in autoscaling group
+* add minimum capacity,max capacity and desired capacity
+* based on desired capacity to add how many instances are required
+
+
+add the below script code in launch template
+** earlier we create an instance through terraform and pull the ansible and install the configuration in specific ip address
+now we are creating an instance through launch template , so we have to add the required script under launch template.
+
+ user_data = base64encode (templatefile ("$ {path.module}/templates/user_data.sh,{
+ component = var.component
+ env= var.env
+ //add require input variables
+ }}"))
+
+ path.module = current folder in module
+ templates is a submodule
+ user_data.sh is a shell script
+
+ create a launch template
+ ------------------------
+ steps:
+ ======
+ 1. launch template name: test
+ 2. ami template
+ 3.instance type
+ 4. subnets
+ 5. security group
+ 6.
+
+ create autoscaling group:
+ -------------------------
+ 1. name
+ 2. launch template name
+ 3.VPC
+ 4.availabilityzones and subnets
+ 5.desire capacity
+ 6.min and max capacity
+ 7.
