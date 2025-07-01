@@ -1,0 +1,28 @@
+when instances are created in subnets?
+
+application server side:   security group
+=========================================
+
+who will access frontend ? public servers
+server_app_cidr = var.public access
+
+who will access backend? frontend servers and backend servers
+server_app_cidr = var.frontend servers + var.backend servers
+
+who will access mysql? backend servers
+server_app_cidr = var.backend servers
+
+
+Load balancer
+==============
+expose application outside
+lb_server_cidr = ["0.0.0.0/0"]
+
+frontend load balancer connects to backend load balancer
+lb_server_cidr = var.frontend subnets
+
+
+Redirect http to https
+
+
+
