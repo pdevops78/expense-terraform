@@ -15,12 +15,10 @@ add the below script code in launch template
 ** earlier we create an instance through terraform and pull the ansible and install the configuration in specific ip address
 now we are creating an instance through launch template , so we have to add the required script under launch template.
 
- user_data = base64encode (templatefile ("$ {path.module}/templates/user_data.sh,{
- component = var.component
- env= var.env
- //add require input variables
- }}"))
-
+ templatefile("${path.module}/userdata.sh", {
+ │    9:      component = var.component
+ │   10:      env       = var.env
+ │   11:    })
  path.module = current folder in module
  templates is a submodule
  user_data.sh is a shell script
