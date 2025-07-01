@@ -37,6 +37,7 @@ lb_server_app_cidr = ["0.0.0.0/0"]
 lb_type            = "public"
 ssl_policy         = var.ssl_policy
 certificate_arn    = var.certificate_arn
+zone_id            = var.zone_id
 }
 
 #  module "backend" {

@@ -12,4 +12,4 @@ variable "lb_server_app_cidr"{}
 variable "lb_type"{}
 variable "ssl_policy"{}
 variable "certificate_arn"{}
-
+variable "zone_id"{}
