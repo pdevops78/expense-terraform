@@ -40,25 +40,24 @@ certificate_arn    = var.certificate_arn
 zone_id            = var.zone_id
 }
 
-# module "backend"{
-# source             = "./module/autoscaling"
-# component          = "backend"
-# env                = var.env
-# instance_type      = var.instance_type
-# subnet_id          = module.AppLoadBalancer.backend
-# server_app_cidr    = concat(var.frontendServers,var.backendServers)
-# app_port           = 8080
-# vpc_id             = module.AppLoadBalancer.vpc_id
-# bastion_node       = var.bastion_node
-# lb_subnets         = module.AppLoadBalancer.frontend
-# lb_server_app_port = {http:8080}
-# lb_server_app_cidr = var.backendServers
-# lb_type            = "private"
-# ssl_policy         = var.ssl_policy
-# certificate_arn    = var.certificate_arn
-# zone_id            = var.zone_id
-#
-# }
+module "backend"{
+source             = "./module/autoscaling"
+component          = "backend"
+env                = var.env
+instance_type      = var.instance_type
+subnet_id          = module.AppLoadBalancer.backend
+server_app_cidr    = concat(var.frontendServers,var.backendServers)
+app_port           = 8080
+vpc_id             = module.AppLoadBalancer.vpc_id
+bastion_node       = var.bastion_node
+lb_subnets         = module.AppLoadBalancer.frontend
+lb_app_port        = {http:8080}
+lb_server_app_cidr = var.backendServers
+lb_type            = "private"
+ssl_policy         = var.ssl_policy
+certificate_arn    = var.certificate_arn
+zone_id            = var.zone_id
+}
 
 # module "rds"{
 # source = "./module/rds"
