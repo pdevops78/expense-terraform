@@ -9,7 +9,12 @@ resource "aws_launch_template" "template" {
      env         = var.env
 
    }))
-
+#  to encrypt the disk by using kms key id
+root_block_device {
+    encrypted    = true
+    kms_key_id   = var.kms_key_id
+    volume_type  = var.volume_type
+    }
   tags = {
   Name = "${var.component}-${var.env}-lt"
   }
@@ -26,6 +31,11 @@ resource "aws_autoscaling_group" "asg" {
         id = aws_launch_template.template.id
         version = "$Latest"
   }
+   tag {
+      key                 = "Name"
+      value               = "${var.component}-${var.env}-asg"
+      propagate_at_launch = true   # This is crucial! to create a name when an instance launched
+    }
   }
 
 # create a load balancer

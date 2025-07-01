@@ -15,3 +15,4 @@ variable "lb_type"{
 variable "ssl_policy"{}
 variable "certificate_arn"{}
 variable "zone_id"{}
+variable "kms_key_id"{}

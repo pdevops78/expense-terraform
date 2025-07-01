@@ -38,6 +38,7 @@ lb_type            = "public"
 ssl_policy         = var.ssl_policy
 certificate_arn    = var.certificate_arn
 zone_id            = var.zone_id
+kms_key_id         = var.kms_key_id
 }
 
 module "backend"{
@@ -57,6 +58,7 @@ lb_type            = "private"
 ssl_policy         = var.ssl_policy
 certificate_arn    = var.certificate_arn
 zone_id            = var.zone_id
+kms_key_id         = var.kms_key_id
 }
 
 # module "rds"{
