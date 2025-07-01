@@ -25,10 +25,12 @@ module "frontend"{
 source = "./module/autoscaling"
 component = "frontend"
 env = var.env
-instance_type = var.internal
-subnet_id = module.VPCInternet.frontend
+instance_type = var.instance_type
+subnet_id = module.AppLoadBalancer.frontend
 server_app_port  = var.publicServers
 app_port = 80
+vpc_id = var.vpc_id
+bastion_node = var.bastion_node
 }
 
 #  module "backend" {

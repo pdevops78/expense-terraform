@@ -4,3 +4,5 @@ variable "instance_type"{}
 variable "subnet_id"{}
 variable "app_port"{}
 variable "server_app_port"{}
+variable "vpc_id"{}
+variable "bastion_node"{}
