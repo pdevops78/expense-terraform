@@ -31,6 +31,7 @@ server_app_port  = var.publicServers
 app_port = 80
 vpc_id = module.AppLoadBalancer.vpc_id
 bastion_node = var.bastion_node
+lb_subnets = module.AppLoadBalancer.public
 }
 
 #  module "backend" {
