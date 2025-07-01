@@ -57,56 +57,56 @@ resource "aws_route" "frontend_route" {
  }
 
  # create frontend subnets
- resource "aws_subnet" "backend_subnets" {
-   count       = length(var.backendServers)
-   vpc_id      = aws_vpc.vpc.id
-   cidr_block  = var.backendServers[count.index]
-   availability_zone = var.availability_zone[count.index]
-   tags = {
-     Name = "${var.env}-backend-${count.index+1}"
-   }
- }
-
- # create Frontend route table
- resource "aws_route_table" "backend" {
-   count   = length(var.backendServers)
-   vpc_id = aws_vpc.vpc.id
-   tags = {
-     Name = "${var.env}-backend-route-${count.index+1}"
-       }
-   }
- #
- # #  Add Routes for for Frontend route table
- resource "aws_route" "backend_route" {
-   count                     = length(var.backendServers)
-   route_table_id            = aws_route_table.backend[count.index].id
-   destination_cidr_block    = var.default_vpc_cidr_block
-   vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
-  }
- #   #  add internet gateway to a public Route
-    resource "aws_route" "backend_route_nat" {
-      count                     = length(var.backendServers)
-      route_table_id            = aws_route_table.backend[count.index].id
-      destination_cidr_block    = "0.0.0.0/0"
-     nat_gateway_id            = aws_nat_gateway.nat[count.index].id
-     }
- #  #  associate subnets with route table id
-  resource "aws_route_table_association" "backend" {
-    count          = length(var.backendServers)
-    subnet_id      = aws_subnet.backend_subnets[count.index].id
-    route_table_id = aws_route_table.backend[count.index].id
-  }
-
- #  create db subnets
- resource "aws_subnet" "db_subnets" {
-   count       = length(var.dbServers)
-   vpc_id      = aws_vpc.vpc.id
-   cidr_block  = var.dbServers[count.index]
-   availability_zone = var.availability_zone[count.index]
-   tags = {
-     Name = "${var.env}-db-${count.index+1}"
-   }
- }
+#  resource "aws_subnet" "backend_subnets" {
+#    count       = length(var.backendServers)
+#    vpc_id      = aws_vpc.vpc.id
+#    cidr_block  = var.backendServers[count.index]
+#    availability_zone = var.availability_zone[count.index]
+#    tags = {
+#      Name = "${var.env}-backend-${count.index+1}"
+#    }
+#  }
+#
+#  # create Frontend route table
+#  resource "aws_route_table" "backend" {
+#    count   = length(var.backendServers)
+#    vpc_id = aws_vpc.vpc.id
+#    tags = {
+#      Name = "${var.env}-backend-route-${count.index+1}"
+#        }
+#    }
+#  #
+#  # #  Add Routes for for Frontend route table
+#  resource "aws_route" "backend_route" {
+#    count                     = length(var.backendServers)
+#    route_table_id            = aws_route_table.backend[count.index].id
+#    destination_cidr_block    = var.default_vpc_cidr_block
+#    vpc_peering_connection_id = aws_vpc_peering_connection.peer.id
+#   }
+#  #   #  add internet gateway to a public Route
+#     resource "aws_route" "backend_route_nat" {
+#       count                     = length(var.backendServers)
+#       route_table_id            = aws_route_table.backend[count.index].id
+#       destination_cidr_block    = "0.0.0.0/0"
+#      nat_gateway_id            = aws_nat_gateway.nat[count.index].id
+#      }
+#  #  #  associate subnets with route table id
+#   resource "aws_route_table_association" "backend" {
+#     count          = length(var.backendServers)
+#     subnet_id      = aws_subnet.backend_subnets[count.index].id
+#     route_table_id = aws_route_table.backend[count.index].id
+#   }
+#
+#  #  create db subnets
+#  resource "aws_subnet" "db_subnets" {
+#    count       = length(var.dbServers)
+#    vpc_id      = aws_vpc.vpc.id
+#    cidr_block  = var.dbServers[count.index]
+#    availability_zone = var.availability_zone[count.index]
+#    tags = {
+#      Name = "${var.env}-db-${count.index+1}"
+#    }
+#  }
 #  create public subnets
  resource "aws_subnet" "public_subnets" {
    count       = length(var.publicServers)
