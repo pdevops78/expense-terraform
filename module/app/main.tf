@@ -86,6 +86,7 @@ resource "aws_route53_record" "server_route" {
 
 resource "aws_route53_record" "lb_route" {
   count              = var.lb_needed ? 1 : 0
+  internal           = var.lb_type == "public" ? 1 : 0
   name               = "${var.component}-${var.env}.pdevops78.online"
   type               = "CNAME"
   zone_id            = var.zone_id

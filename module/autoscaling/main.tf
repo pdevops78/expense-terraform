@@ -4,6 +4,14 @@ resource "aws_launch_template" "template" {
   image_id = data.aws_ami.ami.id
   instance_type = var.instance_type
   vpc_security_group_ids= [aws_security_group.sg.id]
+ user_data = base64encode(
+   templatefile("${path.module}/userdata.sh", {
+     component = var.component
+     env       = var.env
+
+   })
+ )
+
   tags = {
   Name = "${var.component}-${var.env}-lt"
   }
@@ -25,6 +33,7 @@ resource "aws_autoscaling_group" "asg" {
 # create a load balancer
 resource "aws_lb" "alb" {
   name               = "${var.env}-${var.component}-alb"
+  internal           = var.lb_type == "public" ? 1:0
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.lb_subnets
