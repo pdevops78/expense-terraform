@@ -22,16 +22,18 @@
 # }
 
 module "frontend"{
-source = "./module/autoscaling"
-component = "frontend"
-env = var.env
-instance_type = var.instance_type
-subnet_id = module.AppLoadBalancer.frontend
-server_app_port  = var.publicServers
-app_port = 80
-vpc_id = module.AppLoadBalancer.vpc_id
-bastion_node = var.bastion_node
-lb_subnets = module.AppLoadBalancer.public
+source             = "./module/autoscaling"
+component          = "frontend"
+env                = var.env
+instance_type      = var.instance_type
+subnet_id          = module.AppLoadBalancer.frontend
+server_app_cidr    = var.publicServers
+app_port           = 80
+vpc_id             = module.AppLoadBalancer.vpc_id
+bastion_node       = var.bastion_node
+lb_subnets         = module.AppLoadBalancer.public
+lb_server_app_port = {http:80,https:443}
+lb_server_app_cidr = ["0.0.0.0/0"]
 }
 
 #  module "backend" {

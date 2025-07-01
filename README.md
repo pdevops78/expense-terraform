@@ -1,5 +1,15 @@
 # expense-terraform
 
+
+├── main.tf               # root module
+├── variables.tf          # root variables
+├── main.tfvars           # root variable values
+└── modules/
+└── ec2-instance/
+├── main.tf           # module resources
+└── variables.tf      # module input variables
+
+
 1. create server
 2. create instance in that severs
 3. then pull the secrets
@@ -170,3 +180,4 @@ two types of backups are there:
 2. native backup (mysql dump)
 
 
+service linked role:  arn:aws:iam::041445559784:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling
