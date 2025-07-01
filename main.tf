@@ -27,7 +27,7 @@ component = "frontend"
 env = var.env
 instance_type = var.internal
 subnet_id = module.VPCInternet.frontend
-# server_app_port  = var.publicServers
+server_app_port  = var.publicServers
 app_port = 80
 }
 
