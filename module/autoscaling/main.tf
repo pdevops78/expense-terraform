@@ -33,7 +33,7 @@ resource "aws_autoscaling_group" "asg" {
 # create a load balancer
 resource "aws_lb" "alb" {
   name               = "${var.env}-${var.component}-alb"
-  internal           = var.lb_type == "public" ? 1:0
+  internal           = var.lb_type == "public" ? true : false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = var.lb_subnets
