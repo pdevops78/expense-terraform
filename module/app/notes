@@ -26,3 +26,24 @@ Redirect http to https
 
 
 
+Master AMI standards:
+---------------------
+* get existing ami template,instance type and security group
+* add terraform s3 bucket
+
+creating custom AMI template is useful :
+========================================
+1. no need to create OS
+2. install required configurations
+3. OS related configs
+4.run application
+
+in future, we don't want to choose predefined OS , we can use custom AMI template .
+if there is any changes in custom AMI template like package versions, again we have to recreate a new custom AMI image . it is just like a AMI is like a snapshot of a machine at a point in time.
+
+
+
+
+
+
+

@@ -1,5 +1,7 @@
 # expense-terraform
-
+** terraform console: will generate the timestamp
+** destroy only specific resources: terraform destroy -target=aws_instance.web -target=aws_ami.custom_image
+to remove from state file we can use terraform state rm "aws_ami_from_image"
 
 ├── main.tf               # root module
 ├── variables.tf          # root variables
