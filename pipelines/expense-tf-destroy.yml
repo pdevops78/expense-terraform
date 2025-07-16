@@ -1,29 +1,33 @@
 format_version: 10
 pipelines:
-  terraform-destroy:
+  tf-destroy:
     group: expense
-    label_template: ${COUNT}
+    label_template: ${env:app_version}
     lock_behavior: none
     display_order: -1
     materials:
       git-2ae7d73:
-        git: https://github.com/devps23/expense-terraform.git
+        git: https://github.com/pdevops78/expense-terraform.git
         shallow_clone: false
         auto_update: true
         branch: main
+    environment_variables:
+      app_version: ""
+    secure_variables:
+      vault_token: "AES:mZ+qHIsb9ddvEqRzXwhzNg==:RfB2FPPssxxlDbMBpiRzU5wcCd/4zG1VBfUGXW6CmEA="
+
     stages:
-    - DEV:
-        fetch_materials: true
-        keep_artifacts: false
-        clean_workspace: false
-        approval:
-          type: manual
-          allow_only_on_success: false
-        jobs:
-          test-job:
-            timeout: 0
-            tasks:
-            - exec: { command: terraform, arguments: ["init","-backend-config=env-dev/state.tfvars"], run_if: passed }
-            - exec: { command: terraform, arguments: ["destroy","-var-file=env-dev/main.tfvars","-auto-approve"], run_if: passed }
-
-
+      - DEV:
+          fetch_materials: true
+          keep_artifacts: false
+          clean_workspace: false
+          approval:
+            type: manual
+            allow_only_on_success: false
+          jobs:
+            tools-job:
+              timeout: 0
+              tasks:
+                - exec: { command: env }
+                - exec: { command: terraform, arguments: ["init","-backend-config=env-dev/state.tfvars"],run_if: passed }
+                - exec: { command: terraform, arguments: ["destroy","-var-files=env-dev/main.tfvars","auto-approve"],run_if: passed }
