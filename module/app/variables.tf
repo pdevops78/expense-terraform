@@ -20,6 +20,7 @@ variable "certificate_arn"{}
 variable "ssl_policy"{}
 variable "lb_app_port"{}
 variable "volume_type"{}
+variable "kms_key_id" {}
 
 
 
